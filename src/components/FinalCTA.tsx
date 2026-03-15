@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const FinalCTA = () => {
   return (
     <section className="section-padding bg-primary">
