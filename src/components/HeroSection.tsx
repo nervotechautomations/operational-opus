@@ -26,7 +26,7 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button variant="cta" size="xl">
+              <Button variant="cta" size="xl" onClick={() => navigate("/ai-automation-plan")}>
                 Start Your AI Automation Plan
                 <ArrowRight size={18} />
               </Button>

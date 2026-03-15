@@ -27,6 +27,7 @@ const FinalCTA = () => {
             <Button
               size="xl"
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+              onClick={() => navigate("/ai-automation-plan")}
             >
               Start Your AI Automation Plan
               <ArrowRight size={18} />
