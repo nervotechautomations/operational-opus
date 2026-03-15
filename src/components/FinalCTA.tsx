@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 const FinalCTA = () => {
+  const navigate = useNavigate();
   return (
     <section className="section-padding bg-primary">
       <div className="section-container text-center">

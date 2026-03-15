@@ -7,6 +7,7 @@ import WorkflowDiagram from "./WorkflowDiagram";
 const integrations = ["HubSpot", "Salesforce", "Gmail", "Slack", "Shopify", "Stripe", "Zapier"];
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen flex items-center pt-16">
       <div className="section-container w-full">
