@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-
+import { useNavigate } from "react-router-dom";
 const FinalCTA = () => {
+  const navigate = useNavigate();
   return (
     <section className="section-padding bg-primary">
       <div className="section-container text-center">
@@ -26,6 +27,7 @@ const FinalCTA = () => {
             <Button
               size="xl"
               className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
+              onClick={() => navigate("/ai-automation-plan")}
             >
               Start Your AI Automation Plan
               <ArrowRight size={18} />

@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import WorkflowDiagram from "./WorkflowDiagram";
 
 const integrations = ["HubSpot", "Salesforce", "Gmail", "Slack", "Shopify", "Stripe", "Zapier"];
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative min-h-screen flex items-center pt-16">
       <div className="section-container w-full">
@@ -24,7 +26,7 @@ const HeroSection = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button variant="cta" size="xl">
+              <Button variant="cta" size="xl" onClick={() => navigate("/ai-automation-plan")}>
                 Start Your AI Automation Plan
                 <ArrowRight size={18} />
               </Button>
