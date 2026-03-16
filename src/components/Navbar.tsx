@@ -72,7 +72,7 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <Button variant="cta" size="default" className="w-full">
+          <Button variant="cta" size="default" className="w-full" onClick={() => { setMobileOpen(false); navigate("/ai-automation-plan"); }}>
             Start Your AI Automation Plan
           </Button>
         </div>
