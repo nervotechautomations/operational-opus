@@ -1,31 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, CheckCircle2, Zap, Bot, BarChart3, Clock, Shield } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Zap, Bot, BarChart3, Shield, Download, Calendar } from "lucide-react";
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 8;
 
 const businessTypes = [
   "Local service business",
-  "Real estate",
+  "Real estate brokerage",
   "Ecommerce brand",
-  "Dental / medical practice",
-  "Law firm",
-  "Consulting or agency",
+  "Professional services (legal, consulting, accounting)",
+  "Healthcare / dental practice",
   "SaaS or technology company",
   "Other",
-];
-
-const manualWorkAreas = [
-  "Generating leads",
-  "Responding to inquiries",
-  "Qualifying prospects",
-  "Follow-ups and outreach",
-  "Appointment scheduling",
-  "Customer support",
-  "Marketing content",
-  "Internal operations",
 ];
 
 const leadVolumes = [
@@ -35,31 +23,53 @@ const leadVolumes = [
   "500+",
 ];
 
+const lostOpportunities = [
+  "Slow response to inquiries",
+  "Leads not being qualified properly",
+  "Inconsistent follow-ups",
+  "Appointment scheduling inefficiencies",
+  "Customer support overload",
+  "Marketing content production",
+  "Internal operational tasks",
+];
+
 const currentTools = [
   "CRM (HubSpot, Salesforce, etc.)",
-  "Email marketing software",
-  "Scheduling tools",
-  "Customer support systems",
+  "Email marketing platform",
+  "Scheduling software",
+  "Customer support platform",
   "Ecommerce platform",
   "Mostly manual processes",
 ];
 
-const timelines = [
-  "Immediately",
-  "Within the next 1–3 months",
-  "Exploring options",
-  "Just researching",
+const automationGoals = [
+  "Lead generation",
+  "Lead qualification",
+  "Appointment booking",
+  "Customer inquiries or support",
+  "Follow-ups and outreach",
+  "Marketing content production",
+  "Internal workflows",
+];
+
+const revenueRanges = [
+  "Under $25k",
+  "$25k–$100k",
+  "$100k–$500k",
+  "$500k+",
 ];
 
 const AIAutomationPlan = () => {
   const [step, setStep] = useState(1);
-  const [submitted, setSubmitted] = useState(false);
+  const [phase, setPhase] = useState<"form" | "analyzing" | "results">("form");
+  const [analysisProgress, setAnalysisProgress] = useState(0);
   const [answers, setAnswers] = useState({
     businessType: "",
-    manualWork: "",
     leadVolume: "",
+    lostOpportunity: "",
     tools: [] as string[],
-    timeline: "",
+    automationGoal: "",
+    revenue: "",
     name: "",
     email: "",
     company: "",
@@ -84,23 +94,45 @@ const AIAutomationPlan = () => {
   const canProceed = () => {
     switch (step) {
       case 1: return answers.businessType !== "";
-      case 2: return answers.manualWork !== "";
-      case 3: return answers.leadVolume !== "";
+      case 2: return answers.leadVolume !== "";
+      case 3: return answers.lostOpportunity !== "";
       case 4: return answers.tools.length > 0;
-      case 5: return answers.timeline !== "";
-      case 6: return answers.name.trim() !== "" && answers.email.trim() !== "";
+      case 5: return answers.automationGoal !== "";
+      case 6: return true; // revenue is optional
+      case 7: return answers.name.trim() !== "" && answers.email.trim() !== "";
       default: return false;
     }
   };
 
   const next = () => {
-    if (step < TOTAL_STEPS) setStep(step + 1);
-    else setSubmitted(true);
+    if (step < TOTAL_STEPS - 1) {
+      setStep(step + 1);
+    } else {
+      // Start analyzing phase
+      setPhase("analyzing");
+      setAnalysisProgress(0);
+    }
   };
 
   const back = () => {
     if (step > 1) setStep(step - 1);
   };
+
+  // Analysis animation
+  useEffect(() => {
+    if (phase !== "analyzing") return;
+    const interval = setInterval(() => {
+      setAnalysisProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          setTimeout(() => setPhase("results"), 400);
+          return 100;
+        }
+        return prev + 4;
+      });
+    }, 80);
+    return () => clearInterval(interval);
+  }, [phase]);
 
   const OptionButton = ({
     selected,
@@ -162,38 +194,107 @@ const AIAutomationPlan = () => {
     </button>
   );
 
-  // Generate opportunities based on answers
   const getOpportunities = () => {
-    const opps: string[] = [];
-    const work = answers.manualWork;
+    const opps: { title: string; desc: string }[] = [];
+    const goal = answers.automationGoal;
+    const lost = answers.lostOpportunity;
 
-    if (work.includes("leads") || work.includes("Qualifying")) {
-      opps.push("AI lead qualification");
+    if (goal.includes("qualification") || lost.includes("qualified")) {
+      opps.push({
+        title: "AI Lead Qualification System",
+        desc: "Automatically prioritizes high-intent prospects and routes them to the right workflow.",
+      });
     }
-    if (work.includes("Follow-ups") || work.includes("Responding")) {
-      opps.push("Automated follow-up systems");
+    if (goal.includes("Follow-ups") || lost.includes("follow-ups")) {
+      opps.push({
+        title: "AI Follow-Up Automation",
+        desc: "Ensures every lead receives timely and personalized follow-ups.",
+      });
     }
-    if (work.includes("Customer support") || work.includes("inquiries")) {
-      opps.push("Conversational AI for customer inquiries");
+    if (goal.includes("inquiries") || goal.includes("support") || lost.includes("response") || lost.includes("support")) {
+      opps.push({
+        title: "AI Customer Response Agent",
+        desc: "Responds instantly to inquiries, answers questions, and captures new leads 24/7.",
+      });
     }
-    if (work.includes("Appointment")) {
-      opps.push("AI-powered appointment scheduling");
+    if (goal.includes("Appointment") || lost.includes("scheduling")) {
+      opps.push({
+        title: "AI-Powered Appointment Scheduling",
+        desc: "Eliminates back-and-forth by letting AI handle booking and reminders.",
+      });
     }
-    if (work.includes("Marketing")) {
-      opps.push("AI content generation engine");
+    if (goal.includes("Marketing") || lost.includes("content")) {
+      opps.push({
+        title: "AI Content Generation Engine",
+        desc: "Produces marketing copy, social posts, and outreach at scale.",
+      });
     }
-    if (work.includes("Internal")) {
-      opps.push("AI workflow automation");
+    if (goal.includes("Lead generation")) {
+      opps.push({
+        title: "AI Lead Generation System",
+        desc: "Identifies and captures qualified prospects through intelligent targeting.",
+      });
+    }
+    if (goal.includes("Internal") || lost.includes("operational")) {
+      opps.push({
+        title: "AI Workflow Automation",
+        desc: "Streamlines internal processes to free up your team's time.",
+      });
     }
 
     if (opps.length === 0) {
-      opps.push("AI lead qualification", "Automated follow-up systems", "Conversational AI for customer inquiries");
+      opps.push(
+        { title: "AI Lead Qualification System", desc: "Automatically prioritizes high-intent prospects and routes them to the right workflow." },
+        { title: "AI Follow-Up Automation", desc: "Ensures every lead receives timely and personalized follow-ups." },
+        { title: "AI Customer Response Agent", desc: "Responds instantly to inquiries, answers questions, and captures new leads 24/7." },
+      );
     }
 
     return opps;
   };
 
-  if (submitted) {
+  // Analyzing screen
+  if (phase === "analyzing") {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <nav className="border-b border-border bg-background/95 backdrop-blur-sm">
+          <div className="section-container flex items-center justify-between h-16">
+            <a href="/" className="font-bold text-xl tracking-tight text-foreground">
+              <span className="font-mono text-accent">▲</span> Nexus
+              <span className="text-muted-foreground font-normal">AI</span>
+            </a>
+          </div>
+        </nav>
+
+        <div className="flex-1 flex items-center justify-center px-6">
+          <div className="max-w-md w-full text-center">
+            <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-8 animate-pulse">
+              <Bot className="w-8 h-8 text-accent" />
+            </div>
+            <h1 className="text-2xl font-bold text-foreground mb-3">
+              Analyzing Your AI Opportunities…
+            </h1>
+            <p className="text-muted-foreground text-sm mb-8">
+              Evaluating your responses against automation benchmarks
+            </p>
+            <Progress value={analysisProgress} className="h-2 bg-muted mb-3" />
+            <p className="text-xs text-muted-foreground font-mono">
+              {analysisProgress < 30
+                ? "Mapping business model…"
+                : analysisProgress < 60
+                ? "Identifying bottlenecks…"
+                : analysisProgress < 90
+                ? "Generating recommendations…"
+                : "Finalizing your report…"}
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Results screen
+  if (phase === "results") {
     const opportunities = getOpportunities();
 
     return (
@@ -208,27 +309,29 @@ const AIAutomationPlan = () => {
         </nav>
 
         <div className="flex-1 flex items-center justify-center px-6 py-16">
-          <div className="max-w-2xl w-full text-center">
-            <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-8">
-              <CheckCircle2 className="w-4 h-4" />
-              Audit Complete
+          <div className="max-w-2xl w-full">
+            <div className="text-center mb-10">
+              <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <CheckCircle2 className="w-4 h-4" />
+                Analysis Complete
+              </div>
+
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Your AI Automation Opportunities
+              </h1>
+              <p className="text-muted-foreground text-base max-w-xl mx-auto">
+                Based on your responses, there are several areas where AI automation could significantly improve efficiency and revenue generation in your business.
+              </p>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Your AI Opportunity Summary
-            </h1>
-            <p className="text-muted-foreground text-lg mb-4 max-w-xl mx-auto">
-              Based on your responses, your{" "}
-              <span className="text-foreground font-medium">
-                {answers.businessType.toLowerCase()}
-              </span>{" "}
-              business may benefit from:
+            <p className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider font-mono">
+              Potential Automation Systems
             </p>
 
-            <div className="grid gap-4 mb-12 text-left">
+            <div className="grid gap-4 mb-10">
               {opportunities.map((opp, i) => (
-                <div key={i} className="card-surface flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0">
+                <div key={i} className="card-surface flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                     {i === 0 ? (
                       <Zap className="w-5 h-5 text-accent" />
                     ) : i === 1 ? (
@@ -238,35 +341,40 @@ const AIAutomationPlan = () => {
                     )}
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground">{opp}</p>
-                    <p className="text-sm text-muted-foreground">
-                      High automation potential identified
-                    </p>
+                    <p className="font-semibold text-foreground">{opp.title}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{opp.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
 
-            <div className="card-surface mb-8 text-left">
-              <div className="flex items-center gap-3 mb-3">
-                <Clock className="w-5 h-5 text-accent" />
-                <p className="font-semibold text-foreground">Next Step</p>
-              </div>
+            <div className="card-surface mb-8">
               <p className="text-sm text-muted-foreground">
-                Schedule a consultation so we can review your AI automation
-                opportunities and build a detailed implementation roadmap for your business.
+                The next step is to review these opportunities together and design a tailored automation plan for your business.
               </p>
             </div>
 
-            <Button
-              variant="cta"
-              size="xl"
-              className="w-full sm:w-auto"
-              onClick={() => window.open("#", "_blank")}
-            >
-              Book Your AI Consultation
-            </Button>
-            <p className="text-xs text-muted-foreground mt-4">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                variant="cta"
+                size="xl"
+                className="flex-1 gap-2"
+                onClick={() => window.open("#", "_blank")}
+              >
+                <Calendar className="w-5 h-5" />
+                Book Your AI Consultation
+              </Button>
+              <Button
+                variant="ctaOutline"
+                size="xl"
+                className="flex-1 gap-2"
+                onClick={() => window.open("#", "_blank")}
+              >
+                <Download className="w-5 h-5" />
+                Download AI Automation Overview
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground mt-4 text-center">
               Free 30-minute strategy session · No obligation
             </p>
           </div>
@@ -275,6 +383,7 @@ const AIAutomationPlan = () => {
     );
   }
 
+  // Form steps
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <nav className="border-b border-border bg-background/95 backdrop-blur-sm">
@@ -290,10 +399,10 @@ const AIAutomationPlan = () => {
       {/* Progress */}
       <div className="section-container pt-6">
         <div className="flex items-center justify-between text-xs text-muted-foreground mb-2">
-          <span className="font-mono">Step {step} of {TOTAL_STEPS}</span>
-          <span className="font-mono">{Math.round(progress)}%</span>
+          <span className="font-mono">Step {step} of {TOTAL_STEPS - 1}</span>
+          <span className="font-mono">{Math.round((step / (TOTAL_STEPS - 1)) * 100)}%</span>
         </div>
-        <Progress value={progress} className="h-1.5 bg-muted" />
+        <Progress value={(step / (TOTAL_STEPS - 1)) * 100} className="h-1.5 bg-muted" />
       </div>
 
       {/* Content */}
@@ -318,7 +427,7 @@ const AIAutomationPlan = () => {
               </div>
 
               <h2 className="text-lg font-semibold text-foreground mb-4">
-                What type of business do you operate?
+                What best describes your business model?
               </h2>
               <div className="grid gap-3">
                 {businessTypes.map((type) => (
@@ -337,29 +446,7 @@ const AIAutomationPlan = () => {
           {step === 2 && (
             <div className="animate-fade-up">
               <h2 className="text-lg font-semibold text-foreground mb-2">
-                What part of your business requires the most manual work?
-              </h2>
-              <p className="text-sm text-muted-foreground mb-6">
-                Select the area where automation would have the biggest impact.
-              </p>
-              <div className="grid gap-3">
-                {manualWorkAreas.map((item) => (
-                  <OptionButton
-                    key={item}
-                    selected={answers.manualWork === item}
-                    onClick={() => selectSingle("manualWork", item)}
-                  >
-                    {item}
-                  </OptionButton>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {step === 3 && (
-            <div className="animate-fade-up">
-              <h2 className="text-lg font-semibold text-foreground mb-2">
-                How many new leads or inquiries do you receive each month?
+                How many new inquiries or leads does your business receive each month?
               </h2>
               <p className="text-sm text-muted-foreground mb-6">
                 This helps us estimate the impact of automation.
@@ -378,10 +465,32 @@ const AIAutomationPlan = () => {
             </div>
           )}
 
+          {step === 3 && (
+            <div className="animate-fade-up">
+              <h2 className="text-lg font-semibold text-foreground mb-2">
+                Where do most opportunities get lost in your current process?
+              </h2>
+              <p className="text-sm text-muted-foreground mb-6">
+                Select the area with the biggest impact.
+              </p>
+              <div className="grid gap-3">
+                {lostOpportunities.map((item) => (
+                  <OptionButton
+                    key={item}
+                    selected={answers.lostOpportunity === item}
+                    onClick={() => selectSingle("lostOpportunity", item)}
+                  >
+                    {item}
+                  </OptionButton>
+                ))}
+              </div>
+            </div>
+          )}
+
           {step === 4 && (
             <div className="animate-fade-up">
               <h2 className="text-lg font-semibold text-foreground mb-2">
-                Which tools does your business currently use?
+                Which systems currently manage your leads and customer communication?
               </h2>
               <p className="text-sm text-muted-foreground mb-6">
                 Select all that apply.
@@ -403,19 +512,19 @@ const AIAutomationPlan = () => {
           {step === 5 && (
             <div className="animate-fade-up">
               <h2 className="text-lg font-semibold text-foreground mb-2">
-                When are you looking to implement AI automation?
+                What would you most like AI to automate in your business?
               </h2>
               <p className="text-sm text-muted-foreground mb-6">
-                This helps us prioritize your roadmap.
+                Pick the area with the highest priority.
               </p>
               <div className="grid gap-3">
-                {timelines.map((t) => (
+                {automationGoals.map((goal) => (
                   <OptionButton
-                    key={t}
-                    selected={answers.timeline === t}
-                    onClick={() => selectSingle("timeline", t)}
+                    key={goal}
+                    selected={answers.automationGoal === goal}
+                    onClick={() => selectSingle("automationGoal", goal)}
                   >
-                    {t}
+                    {goal}
                   </OptionButton>
                 ))}
               </div>
@@ -425,7 +534,29 @@ const AIAutomationPlan = () => {
           {step === 6 && (
             <div className="animate-fade-up">
               <h2 className="text-lg font-semibold text-foreground mb-2">
-                Get Your AI Automation Plan
+                What is your approximate monthly revenue?
+              </h2>
+              <p className="text-sm text-muted-foreground mb-6">
+                This is optional but helps us tailor recommendations to your scale.
+              </p>
+              <div className="grid gap-3">
+                {revenueRanges.map((range) => (
+                  <OptionButton
+                    key={range}
+                    selected={answers.revenue === range}
+                    onClick={() => selectSingle("revenue", range)}
+                  >
+                    {range}
+                  </OptionButton>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {step === 7 && (
+            <div className="animate-fade-up">
+              <h2 className="text-lg font-semibold text-foreground mb-2">
+                Where should we send your AI Automation Plan?
               </h2>
               <p className="text-sm text-muted-foreground mb-8">
                 We'll prepare a personalized automation roadmap for your business.
@@ -504,7 +635,7 @@ const AIAutomationPlan = () => {
                 disabled={!canProceed()}
                 className="gap-2"
               >
-                {step === TOTAL_STEPS ? (
+                {step === 7 ? (
                   "Generate My AI Automation Plan"
                 ) : (
                   <>
@@ -513,7 +644,7 @@ const AIAutomationPlan = () => {
                   </>
                 )}
               </Button>
-              {step === TOTAL_STEPS && (
+              {step === 7 && (
                 <p className="text-xs text-muted-foreground flex items-center gap-1.5">
                   <Shield className="w-3 h-3" />
                   Your information is kept private and used only to generate your AI automation plan.
