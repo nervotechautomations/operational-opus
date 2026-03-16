@@ -418,12 +418,6 @@ const AIAutomationPlan = () => {
                   Answer a few quick questions and we'll identify the areas where AI
                   automation can improve your revenue, efficiency, and customer communication.
                 </p>
-                <p className="text-xs text-muted-foreground mt-3 font-mono">
-                  ⏱ Most businesses complete this in under 30 seconds
-                </p>
-                <p className="text-xs text-accent/80 mt-1.5 font-mono">
-                  📈 Businesses implementing AI lead scoring report up to 38% improvement in sales ROI
-                </p>
               </div>
 
               <h2 className="text-lg font-semibold text-foreground mb-4">
