@@ -30,7 +30,7 @@ const HeroSection = () => {
                 Start Your AI Automation Plan
                 <ArrowRight size={18} />
               </Button>
-              <Button variant="ctaOutline" size="xl">
+              <Button variant="ctaOutline" size="xl" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
                 See AI Systems
               </Button>
             </div>

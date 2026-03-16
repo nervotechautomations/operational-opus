@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
@@ -11,6 +12,7 @@ const navLinks = [
 ];
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -44,7 +46,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:block">
-          <Button variant="cta" size="default">
+          <Button variant="cta" size="default" onClick={() => navigate("/ai-automation-plan")}>
             Start Your AI Automation Plan
           </Button>
         </div>
@@ -70,7 +72,7 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <Button variant="cta" size="default" className="w-full">
+          <Button variant="cta" size="default" className="w-full" onClick={() => { setMobileOpen(false); navigate("/ai-automation-plan"); }}>
             Start Your AI Automation Plan
           </Button>
         </div>
