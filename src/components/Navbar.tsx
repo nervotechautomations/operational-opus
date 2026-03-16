@@ -46,7 +46,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:block">
-          <Button variant="cta" size="default">
+          <Button variant="cta" size="default" onClick={() => navigate("/ai-automation-plan")}>
             Start Your AI Automation Plan
           </Button>
         </div>
