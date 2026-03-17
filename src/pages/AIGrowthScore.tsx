@@ -18,6 +18,9 @@ import {
   Clock,
   CheckCircle2,
   Calendar,
+  Video,
+  Mail,
+  Bell,
 } from "lucide-react";
 
 /* ─── Types ─── */
