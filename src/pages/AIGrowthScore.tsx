@@ -609,23 +609,78 @@ const AIGrowthScore = () => {
               </div>
             </section>
 
-            {/* Consultation CTA */}
+            {/* Consultation Booking Section */}
             <section className="section-padding bg-surface border-t border-border">
-              <div className="section-container max-w-2xl text-center">
-                <Calendar size={32} className="text-accent mx-auto mb-4" />
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-                  See How to Improve Your AI Growth Score
-                </h2>
-                <p className="text-sm text-muted-foreground mb-8 max-w-lg mx-auto">
-                  Schedule a consultation to review your results and explore how AI systems could be implemented in your business.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                  <Button variant="cta" size="lg">
-                    Book Your AI Automation Consultation
-                    <ArrowRight size={18} />
-                  </Button>
+              <div className="section-container max-w-3xl">
+                {/* Header */}
+                <div className="text-center mb-8">
+                  <span className="mono-label mb-3 block">Free Consultation</span>
+                  <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+                    Book Your Free AI Automation Consultation
+                  </h2>
+                  <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+                    Choose a time that works for you and we'll review your AI Growth Score, automation opportunities, and recommended next steps.
+                  </p>
+                </div>
+
+                {/* Trust Row */}
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-8">
+                  {[
+                    { icon: Clock, label: "30-minute strategy call" },
+                    { icon: Video, label: "Google Meet link included" },
+                    { icon: Calendar, label: "Calendar invite sent automatically" },
+                  ].map(({ icon: Icon, label }) => (
+                    <div key={label} className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <Icon size={16} className="text-accent shrink-0" />
+                      <span>{label}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Cal.com Embed Area */}
+                <div className="card-surface border-2 border-dashed border-accent/20 rounded-lg p-8 md:p-12 mb-6">
+                  {/* Initialize Cal.com embed here: https://cal.com/docs/embeds */}
+                  <div id="cal-embed" className="min-h-[400px] flex items-center justify-center">
+                    <div className="text-center">
+                      <Calendar size={40} className="text-accent/40 mx-auto mb-4" />
+                      <p className="text-sm font-medium text-muted-foreground">
+                        Scheduling widget loading…
+                      </p>
+                      <p className="text-xs text-muted-foreground/60 mt-1">
+                        Select a date and time for your free 30-minute consultation
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Post-Booking Info */}
+                <div className="card-surface bg-accent/5 border-accent/10 rounded-lg p-5 mb-6">
+                  <p className="text-xs font-semibold text-foreground mb-2">After booking, you'll receive:</p>
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                    {[
+                      { icon: Mail, text: "Email confirmation immediately" },
+                      { icon: Video, text: "Google Meet link for the call" },
+                      { icon: Bell, text: "Automatic reminder 15 min before" },
+                    ].map(({ icon: Icon, text }) => (
+                      <div key={text} className="flex items-center gap-2 text-xs text-muted-foreground">
+                        <Icon size={14} className="text-accent shrink-0" />
+                        <span>{text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Fallback + Secondary CTA */}
+                <div className="text-center space-y-4">
+                  <p className="text-xs text-muted-foreground">
+                    Having trouble with the scheduler?{" "}
+                    <a href="mailto:hello@example.com" className="text-accent hover:underline font-medium">
+                      Contact us directly
+                    </a>
+                  </p>
                   <Button variant="ctaOutline" size="lg" onClick={() => navigate("/ai-automation-plan")}>
                     Get Your AI Automation Plan
+                    <ArrowRight size={18} />
                   </Button>
                 </div>
               </div>
