@@ -495,13 +495,104 @@ const AIGrowthScore = () => {
             animate={{ opacity: 1 }}
           >
             {/* Score Hero */}
-            <section className="section-padding pb-12">
+            <section className="section-padding pb-8">
               <div className="section-container max-w-3xl text-center">
                 <p className="mono-label mb-4">Diagnostic Complete</p>
                 <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-8">
                   Your AI Growth Score
                 </h1>
                 <ScoreGauge score={score} animated />
+                {/* 1–2 sentence insight */}
+                <motion.p
+                  className="text-base md:text-lg text-muted-foreground mt-6 max-w-lg mx-auto"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.2, duration: 0.5 }}
+                >
+                  {score < 30
+                    ? "Your business is mostly manual — there's massive room for AI automation to accelerate growth."
+                    : score < 60
+                    ? "You've started automating, but key gaps are leaving revenue on the table."
+                    : score < 80
+                    ? "Your automation is solid. A few targeted AI systems could unlock the next level."
+                    : "You're highly automated — let's fine-tune for maximum ROI."}
+                </motion.p>
+              </div>
+            </section>
+
+            {/* 👉 BOOKING SECTION — immediately after score */}
+            <section className="pb-16 pt-4">
+              <div className="section-container max-w-3xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.5, duration: 0.5 }}
+                >
+                  <div className="text-center mb-8">
+                    <span className="mono-label mb-3 block">Free Consultation</span>
+                    <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+                      See How to Improve Your AI Growth Score
+                    </h2>
+                    <p className="text-sm text-muted-foreground max-w-xl mx-auto">
+                      Choose a time that works for you and we'll review your AI Growth Score, automation opportunities, and recommended next steps.
+                    </p>
+                  </div>
+
+                  {/* Trust Row */}
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-8">
+                    {[
+                      { icon: Clock, label: "30-minute strategy call" },
+                      { icon: Video, label: "Google Meet link included" },
+                      { icon: Calendar, label: "Calendar invite sent automatically" },
+                    ].map(({ icon: Icon, label }) => (
+                      <div key={label} className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Icon size={16} className="text-accent shrink-0" />
+                        <span>{label}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Cal.com Embed Area */}
+                  <div className="card-surface border-2 border-dashed border-accent/20 rounded-lg p-8 md:p-12 mb-6">
+                    {/* Initialize Cal.com embed here: https://cal.com/docs/embeds */}
+                    <div id="cal-embed" className="min-h-[400px] flex items-center justify-center">
+                      <div className="text-center">
+                        <Calendar size={40} className="text-accent/40 mx-auto mb-4" />
+                        <p className="text-sm font-medium text-muted-foreground">
+                          Scheduling widget loading…
+                        </p>
+                        <p className="text-xs text-muted-foreground/60 mt-1">
+                          Select a date and time for your free 30-minute consultation
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Post-Booking Info */}
+                  <div className="card-surface bg-accent/5 border-accent/10 rounded-lg p-5 mb-6">
+                    <p className="text-xs font-semibold text-foreground mb-2">After booking, you'll receive:</p>
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                      {[
+                        { icon: Mail, text: "Email confirmation immediately" },
+                        { icon: Video, text: "Google Meet link for the call" },
+                        { icon: Bell, text: "Automatic reminder 15 min before" },
+                      ].map(({ icon: Icon, text }) => (
+                        <div key={text} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <Icon size={14} className="text-accent shrink-0" />
+                          <span>{text}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Fallback */}
+                  <p className="text-xs text-muted-foreground text-center">
+                    Having trouble with the scheduler?{" "}
+                    <a href="mailto:hello@example.com" className="text-accent hover:underline font-medium">
+                      Contact us directly
+                    </a>
+                  </p>
+                </motion.div>
               </div>
             </section>
 
@@ -609,82 +700,38 @@ const AIGrowthScore = () => {
               </div>
             </section>
 
-            {/* Consultation Booking Section */}
-            <section className="section-padding bg-surface border-t border-border">
-              <div className="section-container max-w-3xl">
-                {/* Header */}
-                <div className="text-center mb-8">
-                  <span className="mono-label mb-3 block">Free Consultation</span>
-                  <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-                    Book Your Free AI Automation Consultation
-                  </h2>
-                  <p className="text-sm text-muted-foreground max-w-xl mx-auto">
-                    Choose a time that works for you and we'll review your AI Growth Score, automation opportunities, and recommended next steps.
-                  </p>
-                </div>
-
-                {/* Trust Row */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 mb-8">
-                  {[
-                    { icon: Clock, label: "30-minute strategy call" },
-                    { icon: Video, label: "Google Meet link included" },
-                    { icon: Calendar, label: "Calendar invite sent automatically" },
-                  ].map(({ icon: Icon, label }) => (
-                    <div key={label} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Icon size={16} className="text-accent shrink-0" />
-                      <span>{label}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Cal.com Embed Area */}
-                <div className="card-surface border-2 border-dashed border-accent/20 rounded-lg p-8 md:p-12 mb-6">
-                  {/* Initialize Cal.com embed here: https://cal.com/docs/embeds */}
-                  <div id="cal-embed" className="min-h-[400px] flex items-center justify-center">
-                    <div className="text-center">
-                      <Calendar size={40} className="text-accent/40 mx-auto mb-4" />
-                      <p className="text-sm font-medium text-muted-foreground">
-                        Scheduling widget loading…
-                      </p>
-                      <p className="text-xs text-muted-foreground/60 mt-1">
-                        Select a date and time for your free 30-minute consultation
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Post-Booking Info */}
-                <div className="card-surface bg-accent/5 border-accent/10 rounded-lg p-5 mb-6">
-                  <p className="text-xs font-semibold text-foreground mb-2">After booking, you'll receive:</p>
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
-                    {[
-                      { icon: Mail, text: "Email confirmation immediately" },
-                      { icon: Video, text: "Google Meet link for the call" },
-                      { icon: Bell, text: "Automatic reminder 15 min before" },
-                    ].map(({ icon: Icon, text }) => (
-                      <div key={text} className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Icon size={14} className="text-accent shrink-0" />
-                        <span>{text}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Fallback + Secondary CTA */}
-                <div className="text-center space-y-4">
-                  <p className="text-xs text-muted-foreground">
-                    Having trouble with the scheduler?{" "}
-                    <a href="mailto:hello@example.com" className="text-accent hover:underline font-medium">
-                      Contact us directly
-                    </a>
-                  </p>
-                  <Button variant="ctaOutline" size="lg" onClick={() => navigate("/ai-automation-plan")}>
-                    Get Your AI Automation Plan
-                    <ArrowRight size={18} />
-                  </Button>
-                </div>
+            {/* Final CTA */}
+            <section className="pb-16">
+              <div className="section-container max-w-3xl text-center">
+                <Button variant="ctaOutline" size="lg" onClick={() => navigate("/ai-automation-plan")}>
+                  Get Your AI Automation Plan
+                  <ArrowRight size={18} />
+                </Button>
               </div>
             </section>
+
+            {/* Sticky bottom CTA */}
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 2, duration: 0.4 }}
+              className="fixed bottom-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-t border-border py-3 px-4"
+            >
+              <div className="max-w-3xl mx-auto flex items-center justify-between gap-3">
+                <p className="text-sm font-medium text-foreground hidden sm:block">
+                  Ready to improve your score?
+                </p>
+                <Button
+                  variant="cta"
+                  size="default"
+                  className="w-full sm:w-auto"
+                  onClick={() => document.getElementById("cal-embed")?.scrollIntoView({ behavior: "smooth", block: "center" })}
+                >
+                  Book Your Free Consultation
+                  <ArrowRight size={16} />
+                </Button>
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
