@@ -715,7 +715,7 @@ const AIGrowthScore = () => {
               initial={{ y: 80, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 2, duration: 0.4 }}
-              className="fixed bottom-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-t border-border py-3 px-4"
+              className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border py-3 px-4"
             >
               <div className="max-w-3xl mx-auto flex items-center justify-between gap-3">
                 <p className="text-sm font-medium text-foreground hidden sm:block">
