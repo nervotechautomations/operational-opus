@@ -35,19 +35,15 @@ const ProblemSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {problems.map((item, i) => (
-            <motion.div
+            <div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.08, duration: 0.5 }}
               className="card-premium flex items-start gap-4"
             >
               <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center">
                 <item.icon size={18} className="text-destructive" />
               </div>
               <p className="text-sm text-foreground font-medium leading-relaxed">{item.text}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

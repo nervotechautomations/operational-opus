@@ -27,12 +27,8 @@ const DemoSection = () => {
             { icon: MessageCircle, title: "Chatbot Preview", desc: "Interact with a sample AI assistant that qualifies leads and answers questions." },
             { icon: GitBranch, title: "Workflow Animation", desc: "See how data flows through an automated pipeline from lead to closed deal." },
           ].map((item, i) => (
-            <motion.div
+            <div
               key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
               className="card-premium flex flex-col items-center text-center group"
             >
               <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mb-5 group-hover:bg-accent/20 transition-colors duration-300">
@@ -40,7 +36,7 @@ const DemoSection = () => {
               </div>
               <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

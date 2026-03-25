@@ -165,19 +165,15 @@ const AIGrowthScoreSection = () => {
 
             <ul className="space-y-3 mb-10">
               {features.map((f, i) => (
-                <motion.li
+                <li
                   key={f.text}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 + i * 0.08 }}
                   className="flex items-center gap-3"
                 >
                   <div className="w-8 h-8 rounded-lg bg-accent/10 border border-accent/15 flex items-center justify-center flex-shrink-0">
                     <f.icon size={15} className="text-accent" />
                   </div>
                   <span className="text-sm text-foreground">{f.text}</span>
-                </motion.li>
+                </li>
               ))}
             </ul>
 

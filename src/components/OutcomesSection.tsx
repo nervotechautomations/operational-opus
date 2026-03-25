@@ -27,12 +27,8 @@ const OutcomesSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {outcomes.map((o, i) => (
-            <motion.div
+            <div
               key={o.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
               className="card-premium text-center group"
             >
               <div className="w-14 h-14 rounded-xl bg-accent/10 border border-accent/15 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent/15 transition-colors duration-300">
@@ -44,22 +40,18 @@ const OutcomesSection = () => {
                 Verified System Metric
               </p>
 
-              <motion.p
+              <p
                 className="text-4xl font-extrabold text-foreground mb-2 tabular-nums"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
               >
                 {o.stat}
-              </motion.p>
+              </p>
 
               <h3 className="text-sm font-semibold text-foreground mb-1">{o.title}</h3>
               <p className="text-xs text-muted-foreground mb-3">{o.desc}</p>
 
               {/* Metric label */}
               <span className="font-mono text-[9px] text-muted-foreground/50 tracking-wider">{o.metric}</span>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
