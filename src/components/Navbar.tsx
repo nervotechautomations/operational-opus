@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Services", href: "#services" },
@@ -23,9 +24,14 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-        scrolled ? "bg-background/95 backdrop-blur-sm border-b border-border shadow-sm" : "bg-transparent"
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "nav-glass border-b border-border/40 shadow-sm"
+          : "bg-transparent"
       }`}
     >
       <div className="section-container flex items-center justify-between h-16">
@@ -38,15 +44,21 @@ const Navbar = () => {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-300 relative group"
             >
               {link.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent transition-all duration-300 group-hover:w-full" />
             </a>
           ))}
         </div>
 
         <div className="hidden md:block">
-          <Button variant="cta" size="default" onClick={() => navigate("/ai-automation-plan")}>
+          <Button
+            variant="cta"
+            size="default"
+            onClick={() => navigate("/ai-automation-plan")}
+            className="shadow-sm shadow-accent/10"
+          >
             Start Your AI Automation Plan
           </Button>
         </div>
@@ -60,24 +72,32 @@ const Navbar = () => {
         </button>
       </div>
 
-      {mobileOpen && (
-        <div className="md:hidden bg-background border-b border-border px-6 pb-6 space-y-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="block text-sm text-muted-foreground hover:text-foreground"
-              onClick={() => setMobileOpen(false)}
-            >
-              {link.label}
-            </a>
-          ))}
-          <Button variant="cta" size="default" className="w-full" onClick={() => { setMobileOpen(false); navigate("/ai-automation-plan"); }}>
-            Start Your AI Automation Plan
-          </Button>
-        </div>
-      )}
-    </nav>
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden nav-glass border-b border-border/40 px-6 pb-6 space-y-4 overflow-hidden"
+          >
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="block text-sm text-muted-foreground hover:text-foreground transition-colors"
+                onClick={() => setMobileOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+            <Button variant="cta" size="default" className="w-full" onClick={() => { setMobileOpen(false); navigate("/ai-automation-plan"); }}>
+              Start Your AI Automation Plan
+            </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 

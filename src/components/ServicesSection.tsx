@@ -22,7 +22,7 @@ const services = [
     icon: MessageSquare,
     label: "CHAT_VOICE",
     title: "AI Voice & Chat Agents",
-    desc: "Conversational AI that answers questions, captures leads, and books appointments automatically.",
+    desc: "Conversational AI that answers questions, captures leads, and books appointments.",
     stat: "24/7",
     statLabel: "Availability",
   },
@@ -30,7 +30,7 @@ const services = [
     icon: Database,
     label: "CRM_AUTO",
     title: "AI CRM Automation",
-    desc: "Systems that log interactions, generate follow-ups, assign tasks, and keep CRM data clean.",
+    desc: "Systems that log interactions, generate follow-ups, and keep CRM data clean.",
     stat: "90%",
     statLabel: "Less manual data entry",
   },
@@ -38,7 +38,7 @@ const services = [
     icon: Zap,
     label: "MARKETING_AUTO",
     title: "AI Marketing Automation",
-    desc: "Automated lead capture and nurture workflows that move prospects toward booking or purchasing.",
+    desc: "Automated lead capture and nurture workflows that move prospects toward booking.",
     stat: "5x",
     statLabel: "Faster pipeline velocity",
   },
@@ -46,7 +46,7 @@ const services = [
     icon: FileText,
     label: "CONTENT_ENGINE",
     title: "AI Content Engines",
-    desc: "Turn one piece of content into dozens of marketing assets across social, email, and blog.",
+    desc: "Turn one piece of content into dozens of marketing assets across channels.",
     stat: "10x",
     statLabel: "Content output",
   },
@@ -62,16 +62,17 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="section-padding">
+    <section id="services" className="section-padding relative">
       <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mb-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="text-center max-w-2xl mx-auto mb-20"
         >
           <p className="mono-label mb-4">Systems Catalog</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="heading-section text-foreground mb-5">
             AI Systems We Deploy
           </h2>
           <p className="text-lg text-muted-foreground">
@@ -79,27 +80,27 @@ const ServicesSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map((s, i) => (
             <motion.div
               key={s.label}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.08, duration: 0.4 }}
-              className="card-surface hover-lift flex flex-col justify-between"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.06, duration: 0.5 }}
+              className="card-premium flex flex-col justify-between group"
             >
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-9 h-9 rounded bg-accent/10 flex items-center justify-center">
-                    <s.icon size={16} className="text-accent" />
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">
+                    <s.icon size={18} className="text-accent" />
                   </div>
                   <span className="font-mono text-[10px] text-muted-foreground tracking-widest">{s.label}</span>
                 </div>
                 <h3 className="text-base font-semibold text-foreground mb-2">{s.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
               </div>
-              <div className="mt-6 pt-4 border-t border-border">
+              <div className="mt-6 pt-4 border-t border-border/40">
                 <span className="text-2xl font-bold text-foreground">{s.stat}</span>
                 <span className="ml-2 text-xs font-mono text-muted-foreground">{s.statLabel}</span>
               </div>

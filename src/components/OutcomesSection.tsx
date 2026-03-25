@@ -10,34 +10,43 @@ const outcomes = [
 
 const OutcomesSection = () => {
   return (
-    <section id="outcomes" className="section-padding bg-surface">
+    <section id="outcomes" className="section-padding">
       <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mb-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="text-center max-w-2xl mx-auto mb-20"
         >
           <p className="mono-label mb-4">Measured Outcomes</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            What Businesses Gain From AI Automation
+          <h2 className="heading-section text-foreground mb-5">
+            Real Results From <span className="gradient-text">AI Automation</span>
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {outcomes.map((o, i) => (
             <motion.div
               key={o.title}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="card-surface bg-background text-center"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="card-premium text-center group"
             >
-              <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                <o.icon size={20} className="text-accent" />
+              <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-accent/20 transition-colors duration-300">
+                <o.icon size={24} className="text-accent" />
               </div>
-              <p className="text-3xl font-bold text-foreground mb-1">{o.stat}</p>
+              <motion.p
+                className="text-4xl font-extrabold text-foreground mb-2"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + i * 0.1, duration: 0.4 }}
+              >
+                {o.stat}
+              </motion.p>
               <h3 className="text-sm font-semibold text-foreground mb-1">{o.title}</h3>
               <p className="text-xs text-muted-foreground">{o.desc}</p>
             </motion.div>
