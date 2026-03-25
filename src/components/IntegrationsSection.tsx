@@ -34,7 +34,7 @@ const IntegrationsSection = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05, duration: 0.4 }}
-              className="px-8 py-5 rounded-2xl border border-border/40 bg-card/50 backdrop-blur-sm font-mono text-sm text-muted-foreground hover:text-foreground hover:border-accent/30 hover:bg-accent/5 transition-all duration-300 cursor-default"
+              className="px-8 py-5 rounded-2xl border border-border/40 bg-card font-mono text-sm text-muted-foreground hover:text-foreground hover:border-accent/30 hover:bg-accent/5 transition-all duration-300 cursor-default"
             >
               {name}
             </motion.div>

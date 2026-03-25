@@ -3,28 +3,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const integrations = ["HubSpot", "Salesforce", "Gmail", "Slack", "Shopify", "Stripe", "Zapier"];
 
-const FloatingOrb = ({ className, delay = 0 }: { className?: string; delay?: number }) => (
-  <motion.div
-    className={`absolute rounded-full blur-3xl opacity-20 ${className}`}
-    animate={{
-      y: [0, -20, 0],
-      x: [0, 10, 0],
-      scale: [1, 1.1, 1],
-    }}
-    transition={{
-      duration: 8,
-      repeat: Infinity,
-      ease: "easeInOut",
-      delay,
-    }}
-  />
-);
-
 const HeroSection = () => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
@@ -32,6 +17,7 @@ const HeroSection = () => {
   const rotateY = useSpring(useTransform(mouseX, [-300, 300], [-5, 5]), { stiffness: 100, damping: 30 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
+    if (isMobile) return;
     const rect = e.currentTarget.getBoundingClientRect();
     mouseX.set(e.clientX - rect.left - rect.width / 2);
     mouseY.set(e.clientY - rect.top - rect.height / 2);
@@ -51,11 +37,22 @@ const HeroSection = () => {
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
       onMouseMove={handleMouseMove}
     >
-      {/* Background effects */}
+      {/* Background effects — static gradient on mobile, animated orbs on desktop */}
       <div className="absolute inset-0 bg-gradient-radial" />
-      <FloatingOrb className="w-[500px] h-[500px] bg-accent top-[-10%] left-[-10%]" />
-      <FloatingOrb className="w-[400px] h-[400px] bg-[hsl(200,84%,50%)] bottom-[-10%] right-[-5%]" delay={2} />
-      <FloatingOrb className="w-[300px] h-[300px] bg-accent top-[40%] right-[20%] opacity-10" delay={4} />
+      {!isMobile && (
+        <>
+          <motion.div
+            className="absolute rounded-full blur-3xl opacity-20 w-[500px] h-[500px] bg-accent top-[-10%] left-[-10%]"
+            animate={{ y: [0, -20, 0], x: [0, 10, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute rounded-full blur-3xl opacity-20 w-[400px] h-[400px] bg-[hsl(200,84%,50%)] bottom-[-10%] right-[-5%]"
+            animate={{ y: [0, -20, 0], x: [0, 10, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+        </>
+      )}
 
       {/* Grid pattern overlay */}
       <div
@@ -128,7 +125,7 @@ const HeroSection = () => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.7 + i * 0.05 }}
-                    className="text-xs font-mono text-muted-foreground border border-border/60 rounded-full px-3 py-1.5 bg-card/50 backdrop-blur-sm hover:border-accent/30 hover:text-foreground transition-colors duration-300"
+                    className="text-xs font-mono text-muted-foreground border border-border/60 rounded-full px-3 py-1.5 bg-card/80 hover:border-accent/30 hover:text-foreground transition-colors duration-300"
                   >
                     {name}
                   </motion.span>
@@ -137,15 +134,13 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
 
-          {/* 3D Tilting Card */}
+          {/* 3D Tilting Card — desktop only */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
             className="hidden lg:block"
-            style={{
-              perspective: 1000,
-            }}
+            style={{ perspective: 1000 }}
           >
             <motion.div
               style={{ rotateX, rotateY }}
@@ -160,7 +155,7 @@ const HeroSection = () => {
                   <span className="font-mono text-xs text-success uppercase tracking-wider">Live System</span>
                 </div>
 
-                {/* Workflow steps with staggered animation */}
+                {/* Workflow steps */}
                 <div className="space-y-3">
                   {[
                     { label: "Visitor", sub: "Website / Ad", num: "01" },
@@ -179,7 +174,7 @@ const HeroSection = () => {
                       <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300">
                         <span className="font-mono text-xs text-accent font-semibold">{step.num}</span>
                       </div>
-                      <div className="flex-1 border border-border/40 rounded-xl px-4 py-3 bg-background/50 backdrop-blur-sm group-hover:border-accent/20 transition-colors duration-300">
+                      <div className="flex-1 border border-border/40 rounded-xl px-4 py-3 bg-background/80 group-hover:border-accent/20 transition-colors duration-300">
                         <p className="text-sm font-semibold text-foreground">{step.label}</p>
                         <p className="text-xs text-muted-foreground font-mono">{step.sub}</p>
                       </div>
