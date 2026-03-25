@@ -120,12 +120,8 @@ const IntegrationsSection = () => {
                 const nx = cx + radius * Math.cos(rad);
                 const ny = cy + radius * Math.sin(rad);
                 return (
-                  <motion.g
+                  <g
                     key={`node-${int.name}`}
-                    initial={{ opacity: 0, scale: 0.7 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.5 + i * 0.08, duration: 0.4 }}
                   >
                     <circle cx={nx} cy={ny} r="26" fill="hsl(var(--card) / 0.6)" stroke="hsl(var(--border) / 0.5)" strokeWidth="1" />
                     <text
@@ -139,7 +135,7 @@ const IntegrationsSection = () => {
                     >
                       {int.name.length > 8 ? int.name.substring(0, 7) + "…" : int.name}
                     </text>
-                  </motion.g>
+                  </g>
                 );
               })}
             </svg>

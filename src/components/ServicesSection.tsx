@@ -73,11 +73,7 @@ const ServiceCard = ({ s, i }: { s: typeof services[0]; i: number }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 25 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: i * 0.06, duration: 0.5 }}
+    <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       className={`card-premium flex flex-col justify-between group cursor-default ${
@@ -118,7 +114,7 @@ const ServiceCard = ({ s, i }: { s: typeof services[0]; i: number }) => {
           STACK: {s.stack}
         </span>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

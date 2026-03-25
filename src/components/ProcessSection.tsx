@@ -44,12 +44,8 @@ const ProcessSection = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {steps.map((step, i) => (
-            <motion.div
+            <div
               key={step.num}
-              initial={{ opacity: 0, y: 25 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
               className="relative group"
             >
               <div className="card-premium bg-background/50 h-full">
@@ -69,7 +65,7 @@ const ProcessSection = () => {
                   <ArrowRight size={16} className="text-border" />
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
