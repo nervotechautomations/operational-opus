@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Gauge, Zap, UserCheck, MessageSquare, TrendingUp, Target } from "lucide-react";
@@ -24,13 +24,13 @@ const ScoreGauge = () => {
             cx="100" cy="100" r="80"
             fill="none"
             stroke="hsl(var(--border))"
-            strokeWidth="8"
+            strokeWidth="6"
           />
           <motion.circle
             cx="100" cy="100" r="80"
             fill="none"
             stroke="hsl(var(--accent))"
-            strokeWidth="8"
+            strokeWidth="6"
             strokeLinecap="round"
             strokeDasharray={circumference}
             initial={{ strokeDashoffset: circumference }}
@@ -42,7 +42,7 @@ const ScoreGauge = () => {
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <p className="font-mono text-xs text-muted-foreground tracking-widest uppercase">AI Growth Score</p>
           <motion.p
-            className="text-5xl font-bold text-foreground mt-1"
+            className="text-5xl font-extrabold text-foreground mt-1"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -70,30 +70,42 @@ const ScoreGauge = () => {
 
 const AIGrowthScoreSection = () => {
   const navigate = useNavigate();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rotateX = useSpring(useTransform(mouseY, [-200, 200], [3, -3]), { stiffness: 100, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-200, 200], [-3, 3]), { stiffness: 100, damping: 30 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left - rect.width / 2);
+    mouseY.set(e.clientY - rect.top - rect.height / 2);
+  };
 
   return (
-    <section className="section-padding bg-surface">
-      <div className="section-container">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left — Text */}
+    <section className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-section" />
+
+      <div className="section-container relative z-10">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.7 }}
           >
             <p className="mono-label mb-4">Business Diagnostic</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              What's Your AI Growth Score?
+            <h2 className="heading-section text-foreground mb-5">
+              What's Your{" "}
+              <span className="gradient-text">AI Growth Score</span>?
             </h2>
-            <p className="text-lg text-muted-foreground mb-3">
+            <p className="text-lg text-muted-foreground mb-3 leading-relaxed">
               Discover how automated your marketing, lead management, and customer communication systems are.
             </p>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+            <p className="text-sm text-muted-foreground leading-relaxed mb-10">
               Most businesses still rely on manual processes for lead response, qualification, and follow-ups. Our AI Growth Score analyzes your workflows and identifies where AI systems could improve efficiency, response speed, and revenue generation.
             </p>
 
-            <ul className="space-y-3 mb-8">
+            <ul className="space-y-3 mb-10">
               {features.map((f, i) => (
                 <motion.li
                   key={f.text}
@@ -103,8 +115,8 @@ const AIGrowthScoreSection = () => {
                   transition={{ delay: 0.1 + i * 0.08 }}
                   className="flex items-center gap-3"
                 >
-                  <div className="w-7 h-7 rounded bg-accent/10 flex items-center justify-center flex-shrink-0">
-                    <f.icon size={14} className="text-accent" />
+                  <div className="w-8 h-8 rounded-xl bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <f.icon size={15} className="text-accent" />
                   </div>
                   <span className="text-sm text-foreground">{f.text}</span>
                 </motion.li>
@@ -115,7 +127,7 @@ const AIGrowthScoreSection = () => {
               variant="cta"
               size="lg"
               onClick={() => navigate("/ai-growth-score")}
-              className="group"
+              className="group shadow-lg shadow-accent/20"
             >
               <Gauge size={18} className="mr-1" />
               Check Your AI Growth Score
@@ -123,35 +135,42 @@ const AIGrowthScoreSection = () => {
             <p className="text-xs text-muted-foreground mt-3 font-mono">Takes about 30 seconds.</p>
           </motion.div>
 
-          {/* Right — Gauge Visual */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
             className="flex justify-center"
+            onMouseMove={handleMouseMove}
+            style={{ perspective: 800 }}
           >
-            <div className="card-surface p-8 lg:p-10 w-full max-w-sm">
-              <div className="flex items-center gap-2 mb-6">
-                <span className="pulse-dot" />
-                <span className="font-mono text-xs text-success uppercase tracking-wider">System Diagnostic</span>
+            <motion.div
+              style={{ rotateX, rotateY }}
+              className="w-full max-w-sm"
+            >
+              <div className="absolute -inset-4 bg-accent/5 rounded-3xl blur-2xl" />
+              <div className="relative card-glass p-8 lg:p-10 glow-subtle">
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="pulse-dot" />
+                  <span className="font-mono text-xs text-success uppercase tracking-wider">System Diagnostic</span>
+                </div>
+                <ScoreGauge />
+                <div className="mt-8 pt-6 border-t border-border/40 grid grid-cols-3 gap-4 text-center">
+                  <div>
+                    <p className="text-lg font-bold text-foreground">6</p>
+                    <p className="font-mono text-[10px] text-muted-foreground">Areas Analyzed</p>
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-foreground">3</p>
+                    <p className="font-mono text-[10px] text-muted-foreground">Quick Wins</p>
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-accent">High</p>
+                    <p className="font-mono text-[10px] text-muted-foreground">AI Potential</p>
+                  </div>
+                </div>
               </div>
-              <ScoreGauge />
-              <div className="mt-8 pt-6 border-t border-border grid grid-cols-3 gap-4 text-center">
-                <div>
-                  <p className="text-lg font-bold text-foreground">6</p>
-                  <p className="font-mono text-[10px] text-muted-foreground">Areas Analyzed</p>
-                </div>
-                <div>
-                  <p className="text-lg font-bold text-foreground">3</p>
-                  <p className="font-mono text-[10px] text-muted-foreground">Quick Wins</p>
-                </div>
-                <div>
-                  <p className="text-lg font-bold text-accent">High</p>
-                  <p className="font-mono text-[10px] text-muted-foreground">AI Potential</p>
-                </div>
-              </div>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </div>

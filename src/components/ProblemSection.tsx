@@ -11,21 +11,25 @@ const problems = [
 
 const ProblemSection = () => {
   return (
-    <section className="section-padding bg-surface">
-      <div className="section-container">
+    <section className="section-padding relative overflow-hidden">
+      {/* Subtle gradient bg */}
+      <div className="absolute inset-0 bg-gradient-section" />
+
+      <div className="section-container relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="max-w-3xl mb-16"
         >
           <p className="mono-label mb-4">The Problem</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-            Most Businesses Are Losing Opportunities to Slow Processes
+          <h2 className="heading-section text-foreground mb-6">
+            Most Businesses Are Losing Opportunities to{" "}
+            <span className="gradient-text">Slow Processes</span>
           </h2>
-          <p className="text-lg text-muted-foreground mb-12">
-            Every delayed response, missed follow-up, and manual task is revenue left on the table. AI systems can now automate these workflows reliably.
+          <p className="text-lg text-muted-foreground leading-relaxed">
+            Every delayed response, missed follow-up, and manual task is revenue left on the table.
           </p>
         </motion.div>
 
@@ -33,13 +37,13 @@ const ProblemSection = () => {
           {problems.map((item, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.4 }}
-              className="flex items-start gap-4 p-5 rounded-lg border border-border bg-background"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="card-premium flex items-start gap-4"
             >
-              <div className="flex-shrink-0 w-10 h-10 rounded bg-destructive/10 flex items-center justify-center">
+              <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center">
                 <item.icon size={18} className="text-destructive" />
               </div>
               <p className="text-sm text-foreground font-medium leading-relaxed">{item.text}</p>

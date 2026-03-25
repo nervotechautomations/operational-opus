@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Search, Cog, TrendingUp } from "lucide-react";
+import { Search, Cog, TrendingUp, ArrowRight } from "lucide-react";
 
 const steps = [
   {
@@ -24,17 +24,21 @@ const steps = [
 
 const ProcessSection = () => {
   return (
-    <section id="process" className="section-padding bg-surface">
-      <div className="section-container">
+    <section id="process" className="section-padding relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-section" />
+
+      <div className="section-container relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mb-16"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+          className="text-center max-w-2xl mx-auto mb-20"
         >
           <p className="mono-label mb-4">Implementation</p>
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            How We Implement AI in Your Business
+          <h2 className="heading-section text-foreground mb-5">
+            Three Steps to{" "}
+            <span className="gradient-text">AI-Powered</span> Operations
           </h2>
         </motion.div>
 
@@ -42,20 +46,29 @@ const ProcessSection = () => {
           {steps.map((step, i) => (
             <motion.div
               key={step.num}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.4 }}
-              className="relative"
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: i * 0.15, duration: 0.5 }}
+              className="relative group"
             >
-              <div className="card-surface bg-background h-full">
-                <span className="font-mono text-4xl font-bold text-border">{step.num}</span>
-                <div className="w-10 h-10 rounded bg-accent/10 flex items-center justify-center mt-4 mb-4">
-                  <step.icon size={18} className="text-accent" />
+              <div className="card-premium bg-background/50 h-full">
+                <span className="font-mono text-5xl font-extrabold text-border/60 group-hover:text-accent/20 transition-colors duration-500">
+                  {step.num}
+                </span>
+                <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mt-6 mb-5 group-hover:bg-accent/20 transition-colors duration-300">
+                  <step.icon size={22} className="text-accent" />
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
               </div>
+
+              {/* Arrow connector on desktop */}
+              {i < steps.length - 1 && (
+                <div className="hidden md:flex absolute -right-3 top-1/2 -translate-y-1/2 z-10">
+                  <ArrowRight size={16} className="text-border" />
+                </div>
+              )}
             </motion.div>
           ))}
         </div>
