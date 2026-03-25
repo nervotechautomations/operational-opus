@@ -14,7 +14,9 @@ import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Dot grid texture overlay */}
+      <div className="dot-grid-overlay" />
       <Navbar />
       <HeroSection />
       <ProblemSection />
