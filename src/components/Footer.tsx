@@ -11,7 +11,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="font-bold text-xl tracking-tight"
           >
-            <span className="font-mono text-accent">▲</span> Nexus<span className="text-muted-foreground font-normal">AI</span>
+            <span className="font-mono text-accent">▲</span> Nervo<span className="text-muted-foreground font-normal">Tech</span>
           </motion.div>
           <div className="flex gap-8">
             {["Services", "Industries", "Process", "Integrations"].map((label) => (
@@ -24,7 +24,7 @@ const Footer = () => {
               </a>
             ))}
           </div>
-          <p className="text-xs text-muted-foreground font-mono">© 2026 NexusAI. All rights reserved.</p>
+          <p className="text-xs text-muted-foreground font-mono">© 2026 Nervo Tech. All rights reserved.</p>
         </div>
       </div>
     </footer>

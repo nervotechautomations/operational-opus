@@ -36,7 +36,7 @@ const Navbar = () => {
     >
       <div className="section-container flex items-center justify-between h-16">
         <a href="#" className="font-bold text-xl tracking-tight text-foreground">
-          <span className="font-mono text-accent">▲</span> Nexus<span className="text-muted-foreground font-normal">AI</span>
+          <span className="font-mono text-accent">▲</span> Nervo<span className="text-muted-foreground font-normal">Tech</span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">
