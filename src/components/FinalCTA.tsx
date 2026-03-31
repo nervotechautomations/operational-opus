@@ -1,10 +1,14 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import CalBookingDialog from "@/components/CalBookingDialog";
 
 const FinalCTA = () => {
   const navigate = useNavigate();
+  const [calOpen, setCalOpen] = useState(false);
+
   return (
     <section className="section-padding relative overflow-hidden">
       {/* Premium dark gradient background */}
@@ -54,10 +58,8 @@ const FinalCTA = () => {
           </div>
         </motion.div>
       </div>
+
       <CalBookingDialog open={calOpen} onOpenChange={setCalOpen} />
-          </div>
-        </motion.div>
-      </div>
     </section>
   );
 };
