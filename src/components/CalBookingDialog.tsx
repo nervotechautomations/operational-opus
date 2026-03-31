@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 
 // ⚙️ UPDATE THIS to your Cal.com booking link
-export const CAL_EMBED_URL = "https://cal.com/nervo-tech/discovery-call";
+export const CAL_EMBED_URL = "https://cal.com/cristian-dieguez-uhgoro/30min";
 
 interface CalBookingDialogProps {
   open: boolean;
