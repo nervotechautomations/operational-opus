@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import CalBookingDialog from "@/components/CalBookingDialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
@@ -99,6 +100,7 @@ const SelectableCard = ({
 
 const AIAutomationPlan = () => {
   const [step, setStep] = useState(1);
+  const [calOpen, setCalOpen] = useState(false);
   const [phase, setPhase] = useState<"form" | "analyzing" | "results">("form");
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [answers, setAnswers] = useState({
@@ -316,7 +318,7 @@ const AIAutomationPlan = () => {
                   background: 'linear-gradient(135deg, hsl(220 70% 55%), hsl(240 60% 50%))',
                   boxShadow: '0 0 24px -6px hsl(220 70% 55% / 0.4)',
                 }}
-                onClick={() => window.open("#", "_blank")}
+                onClick={() => setCalOpen(true)}
               >
                 <Calendar className="w-5 h-5" />
                 Schedule Technical Discovery
@@ -549,6 +551,7 @@ const AIAutomationPlan = () => {
           </div>
         </div>
       </div>
+      <CalBookingDialog open={calOpen} onOpenChange={setCalOpen} />
     </div>
   );
 };

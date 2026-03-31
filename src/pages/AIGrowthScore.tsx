@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { CAL_EMBED_URL } from "@/components/CalBookingDialog";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -553,19 +554,14 @@ const AIGrowthScore = () => {
                   </div>
 
                   {/* Cal.com Embed Area */}
-                  <div className="card-surface border-2 border-dashed border-accent/20 rounded-lg p-8 md:p-12 mb-6">
-                    {/* Initialize Cal.com embed here: https://cal.com/docs/embeds */}
-                    <div id="cal-embed" className="min-h-[400px] flex items-center justify-center">
-                      <div className="text-center">
-                        <Calendar size={40} className="text-accent/40 mx-auto mb-4" />
-                        <p className="text-sm font-medium text-muted-foreground">
-                          Scheduling widget loading…
-                        </p>
-                        <p className="text-xs text-muted-foreground/60 mt-1">
-                          Select a date and time for your free 30-minute consultation
-                        </p>
-                      </div>
-                    </div>
+                  <div className="card-surface border-accent/10 rounded-lg overflow-hidden mb-6">
+                    <iframe
+                      src={`${CAL_EMBED_URL}?embed=true&theme=dark`}
+                      className="w-full border-0"
+                      style={{ minHeight: "500px", colorScheme: "dark" }}
+                      title="Schedule a consultation"
+                      allow="payment"
+                    />
                   </div>
 
                   {/* Post-Booking Info */}
