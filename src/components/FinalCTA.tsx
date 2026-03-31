@@ -47,9 +47,14 @@ const FinalCTA = () => {
               size="xl"
               variant="outline"
               className="border-primary-foreground/15 text-primary-foreground hover:bg-primary-foreground/5"
+              onClick={() => setCalOpen(true)}
             >
               Schedule a Consultation
             </Button>
+          </div>
+        </motion.div>
+      </div>
+      <CalBookingDialog open={calOpen} onOpenChange={setCalOpen} />
           </div>
         </motion.div>
       </div>

@@ -316,7 +316,7 @@ const AIAutomationPlan = () => {
                   background: 'linear-gradient(135deg, hsl(220 70% 55%), hsl(240 60% 50%))',
                   boxShadow: '0 0 24px -6px hsl(220 70% 55% / 0.4)',
                 }}
-                onClick={() => window.open("#", "_blank")}
+                onClick={() => setCalOpen(true)}
               >
                 <Calendar className="w-5 h-5" />
                 Schedule Technical Discovery
