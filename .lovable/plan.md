@@ -1,35 +1,19 @@
 
 
-# Cal.com Booking Integration
+# Embed Cal.com Calendar Inline on Results Page
 
-## Overview
-Wire up all "Schedule" buttons to open a Cal.com scheduling embed in a dialog modal. This keeps users on-site and provides a polished booking experience.
+## What changes
+Replace the "Schedule Technical Discovery" button (which opens a dialog) with an inline Cal.com iframe embed directly on the results page. After completing the questionnaire and seeing their diagnostic results, users will see the booking calendar right there — no extra click needed.
 
-## Prerequisites
-You'll need your Cal.com booking link (e.g., `cal.com/nervo-tech/discovery-call`). We'll make it configurable via a constant.
+## Implementation
 
-## Plan
+### 1. Modify the results screen in `AIAutomationPlan.tsx`
+- Remove the `CalBookingDialog` component and `calOpen` state (no longer needed)
+- After the opportunity cards and the "next step" card, embed the Cal.com iframe inline with a section header like `SCHEDULE_DISCOVERY_SESSION`
+- Use `CAL_EMBED_URL` from `CalBookingDialog.tsx` with `?embed=true&theme=dark`
+- Style: full-width, ~600px min-height, dark theme, rounded corners matching the card aesthetic
+- Keep the "Download Overview" button below the embed
 
-### 1. Create a reusable CalBookingDialog component
-- New file: `src/components/CalBookingDialog.tsx`
-- Uses shadcn `Dialog` component with a full-width iframe pointing to your Cal.com embed URL
-- Props: `open`, `onOpenChange`
-- Embed URL stored as a constant at the top (easy to update)
-- Styled to match the dark engineering aesthetic (dark background, accent border)
-
-### 2. Wire up buttons in AIAutomationPlan.tsx
-- Import `CalBookingDialog`, add `open` state
-- "Schedule Technical Discovery" button opens the dialog instead of `window.open("#")`
-
-### 3. Wire up button in FinalCTA.tsx
-- Same pattern — "Schedule a Consultation" button opens the Cal.com dialog
-
-### 4. Update AIGrowthScore.tsx placeholder
-- Replace the "Scheduling widget loading…" placeholder div with the Cal.com iframe embed directly inline (already has a dedicated section for it)
-
-## Technical Details
-- Cal.com embed URL format: `https://cal.com/{username}/{event}?embed=true&theme=dark`
-- The `?theme=dark` param matches our dark UI
-- Iframe gets `width: 100%`, `min-height: 600px`, `border: none`, `border-radius` to match card styling
-- All existing visual design and layout preserved — only `onClick` handlers and the new dialog change
+### 2. Keep `CalBookingDialog.tsx` as-is
+It's still used by `FinalCTA.tsx` on the homepage.
 
