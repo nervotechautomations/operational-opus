@@ -3,7 +3,7 @@ import { CAL_EMBED_URL } from "@/components/CalBookingDialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight, CheckCircle2, Zap, Bot, BarChart3, Shield, Download, Calendar } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, Zap, Bot, BarChart3, Shield, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const TOTAL_STEPS = 7;
