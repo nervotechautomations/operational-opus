@@ -100,7 +100,7 @@ const SelectableCard = ({
 
 const AIAutomationPlan = () => {
   const [step, setStep] = useState(1);
-  const [calOpen, setCalOpen] = useState(false);
+  
   const [phase, setPhase] = useState<"form" | "analyzing" | "results">("form");
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [answers, setAnswers] = useState({
