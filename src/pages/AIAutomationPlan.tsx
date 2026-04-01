@@ -310,23 +310,22 @@ const AIAutomationPlan = () => {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button
-                size="xl"
-                className="flex-1 gap-2 font-semibold text-accent-foreground"
-                style={{
-                  background: 'linear-gradient(135deg, hsl(220 70% 55%), hsl(240 60% 50%))',
-                  boxShadow: '0 0 24px -6px hsl(220 70% 55% / 0.4)',
-                }}
-                onClick={() => setCalOpen(true)}
-              >
-                <Calendar className="w-5 h-5" />
-                Schedule Technical Discovery
-              </Button>
+            <p className="mono-label mb-4">SCHEDULE_DISCOVERY_SESSION</p>
+            <div className="rounded-xl overflow-hidden border border-border bg-[hsl(0_0%_6%)] mb-8">
+              <iframe
+                src={`${CAL_EMBED_URL}?embed=true&theme=dark`}
+                className="w-full border-0"
+                style={{ minHeight: '600px', colorScheme: 'dark' }}
+                title="Schedule a discovery session"
+                allow="payment"
+              />
+            </div>
+
+            <div className="flex justify-center">
               <Button
                 variant="ctaOutline"
                 size="xl"
-                className="flex-1 gap-2"
+                className="gap-2"
                 onClick={() => window.open("#", "_blank")}
               >
                 <Download className="w-5 h-5" />
