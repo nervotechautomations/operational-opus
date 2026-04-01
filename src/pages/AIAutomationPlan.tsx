@@ -550,7 +550,7 @@ const AIAutomationPlan = () => {
           </div>
         </div>
       </div>
-      <CalBookingDialog open={calOpen} onOpenChange={setCalOpen} />
+      
     </div>
   );
 };
