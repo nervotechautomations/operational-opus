@@ -25,6 +25,10 @@ const Footer = () => {
               </a>
             ))}
           </div>
+          <div className="flex gap-6">
+            <Link to="/privacy-policy" className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">Privacy Policy</Link>
+            <Link to="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors duration-300">Terms</Link>
+          </div>
           <p className="text-xs text-muted-foreground font-mono">© 2026 Nervo Tech. All rights reserved.</p>
         </div>
       </div>
