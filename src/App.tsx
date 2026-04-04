@@ -8,6 +8,7 @@ import AIAutomationPlan from "./pages/AIAutomationPlan.tsx";
 import AIGrowthScore from "./pages/AIGrowthScore.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import Terms from "./pages/Terms.tsx";
+import RealEstate from "./pages/RealEstate.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
