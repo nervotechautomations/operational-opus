@@ -62,7 +62,7 @@ const RealEstate = () => {
       </nav>
 
       {/* HERO */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-28 text-center">
+      <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 pt-12 md:pt-20 pb-16 md:pb-28 text-center">
         <motion.div {...fadeUp}>
           <span className="inline-block font-mono text-xs tracking-widest text-[#2563EB] uppercase mb-6 border border-[#2563EB]/20 bg-[#2563EB]/5 rounded-full px-4 py-1.5">
             Real Estate AI Receptionist
