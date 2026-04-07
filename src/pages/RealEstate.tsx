@@ -67,7 +67,7 @@ const RealEstate = () => {
           <span className="inline-block font-mono text-xs tracking-widest text-[#2563EB] uppercase mb-6 border border-[#2563EB]/20 bg-[#2563EB]/5 rounded-full px-4 py-1.5">
             Real Estate AI Receptionist
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-6 max-w-4xl mx-auto">
+          <h1 className="text-3xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-6 max-w-4xl mx-auto">
             Your Real Estate Business Doesn't Sleep.{" "}
             <span className="text-[#2563EB]">Neither Does Your Receptionist.</span>
           </h1>
