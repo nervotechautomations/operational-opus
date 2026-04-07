@@ -1,4 +1,11 @@
 {
+  "redirects": [
+    {
+      "source": "/realestate",
+      "destination": "https://real-estate.nervo-tech.com",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/index.html" }
   ]
