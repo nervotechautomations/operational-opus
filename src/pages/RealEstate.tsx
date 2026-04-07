@@ -98,7 +98,7 @@ const RealEstate = () => {
       </section>
 
       {/* DEMO EMBED */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 pb-12">
+      <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 pb-8 md:pb-12">
         <motion.div {...fadeUp} className="rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/50">
           <iframe
             src="/call-flow-animation.html"
@@ -108,7 +108,7 @@ const RealEstate = () => {
             frameBorder="0"
             allow="clipboard-write"
             allowFullScreen
-            className="w-full"
+            className="w-full h-[350px] md:h-[600px]"
           />
         </motion.div>
       </section>
