@@ -181,7 +181,7 @@ const RealEstate = () => {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="relative z-10 max-w-xl mx-auto px-6 py-24 text-center">
+      <section id="pricing" className="relative z-10 max-w-xl mx-auto px-4 md:px-6 py-16 md:py-24 text-center">
         <motion.h2 {...fadeUp} className="text-3xl md:text-4xl font-bold mb-12 tracking-tight">
           Simple Pricing
         </motion.h2>
