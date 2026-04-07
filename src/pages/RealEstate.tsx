@@ -101,7 +101,7 @@ const RealEstate = () => {
       <section className="relative z-10 max-w-5xl mx-auto px-6 pb-12">
         <motion.div {...fadeUp} className="rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/50">
           <iframe
-            src="https://claude.site/public/artifacts/9bd4a0b6-ca0d-44e8-bc36-c456103321e4/embed"
+            src="/call-flow-animation.html"
             title="AI Receptionist Demo"
             width="100%"
             height="600"
