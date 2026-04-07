@@ -62,12 +62,12 @@ const RealEstate = () => {
       </nav>
 
       {/* HERO */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-28 text-center">
+      <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 pt-12 md:pt-20 pb-16 md:pb-28 text-center">
         <motion.div {...fadeUp}>
           <span className="inline-block font-mono text-xs tracking-widest text-[#2563EB] uppercase mb-6 border border-[#2563EB]/20 bg-[#2563EB]/5 rounded-full px-4 py-1.5">
             Real Estate AI Receptionist
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-6 max-w-4xl mx-auto">
+          <h1 className="text-3xl md:text-6xl font-bold leading-[1.1] tracking-tight mb-6 max-w-4xl mx-auto">
             Your Real Estate Business Doesn't Sleep.{" "}
             <span className="text-[#2563EB]">Neither Does Your Receptionist.</span>
           </h1>
@@ -98,7 +98,7 @@ const RealEstate = () => {
       </section>
 
       {/* DEMO EMBED */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 pb-12">
+      <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 pb-8 md:pb-12">
         <motion.div {...fadeUp} className="rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/50">
           <iframe
             src="/call-flow-animation.html"
@@ -108,13 +108,13 @@ const RealEstate = () => {
             frameBorder="0"
             allow="clipboard-write"
             allowFullScreen
-            className="w-full"
+            className="w-full h-[350px] md:h-[600px]"
           />
         </motion.div>
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 py-24">
+      <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 py-16 md:py-24">
         <motion.h2 {...fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight">
           How It Works
         </motion.h2>
@@ -157,7 +157,7 @@ const RealEstate = () => {
       </section>
 
       {/* WHAT YOU GET */}
-      <section className="relative z-10 max-w-3xl mx-auto px-6 py-24">
+      <section className="relative z-10 max-w-3xl mx-auto px-4 md:px-6 py-16 md:py-24">
         <motion.h2 {...fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-12 tracking-tight">
           Everything Included
         </motion.h2>
@@ -181,7 +181,7 @@ const RealEstate = () => {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="relative z-10 max-w-xl mx-auto px-6 py-24 text-center">
+      <section id="pricing" className="relative z-10 max-w-xl mx-auto px-4 md:px-6 py-16 md:py-24 text-center">
         <motion.h2 {...fadeUp} className="text-3xl md:text-4xl font-bold mb-12 tracking-tight">
           Simple Pricing
         </motion.h2>
