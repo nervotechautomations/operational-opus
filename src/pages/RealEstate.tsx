@@ -108,7 +108,7 @@ const RealEstate = () => {
             frameBorder="0"
             allow="clipboard-write"
             allowFullScreen
-            className="w-full h-[350px] md:h-[600px]"
+            className="w-full h-[580px] md:h-[600px]"
           />
         </motion.div>
       </section>
