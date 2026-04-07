@@ -357,7 +357,26 @@
   .step-dot.active { background: #2563EB; transform: scale(1.3); }
 
   /* ── SHARED SHOW UTILITY ── */
-  .show { opacity: 1 !important; transform: none !important; }
+  .show { opacity: 1 !important; transform: scale(1) translateX(0) translateY(0) !important; }
+
+  /* ── MOBILE RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .scene { height: 100vh; padding: 10px 0; }
+    .step-label { font-size: 9px; top: 10px; }
+    .stage {
+      transform: scale(0.6);
+      transform-origin: center center;
+      max-width: 100vw;
+      padding: 0 4px;
+    }
+    .conn { max-width: 30px; min-width: 6px; }
+    .step-dots { bottom: 6px; }
+    .step-dot { width: 4px; height: 4px; }
+  }
+
+  @media (max-width: 380px) {
+    .stage { transform: scale(0.48); }
+  }
 </style>
 </head>
 <body>
