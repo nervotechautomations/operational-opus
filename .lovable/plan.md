@@ -1,36 +1,34 @@
 
 
-# Add Claude Artifact Embed to /realestate
+# Make Call Flow Animation Vertical on Mobile
 
-## What changes
-Add an iframe embedding the Claude artifact between the Hero section and the "How It Works" section on the Real Estate landing page.
+## Problem
+The animation currently uses a horizontal layout (phone → connector → AI panel → connector → right panel) which doesn't fit well on mobile even with scaling. On a 390px viewport, the scaled-down elements are too small to read.
 
-## Implementation
+## Solution
+Restructure the animation to stack vertically on mobile screens (under 600px) while keeping the horizontal layout on desktop.
 
-### Modify `src/pages/RealEstate.tsx`
-- Insert a new section after the hero (`</section>` at ~line 98) and before the "How It Works" section (line 100)
-- Wrap the iframe in a `motion.div` with the same `fadeUp` animation for consistency
-- Constrain to `max-w-5xl` to match other sections
-- Style the iframe with rounded corners (`rounded-xl`), a subtle border (`border border-neutral-800`), and dark background to blend with the page
-- Set `width="100%"`, `height="600"`, `frameBorder="0"`, `allow="clipboard-write"`, and `allowFullScreen`
+### Changes to `public/call-flow-animation.html`
 
-```tsx
-{/* DEMO EMBED */}
-<section className="relative z-10 max-w-5xl mx-auto px-6 pb-12">
-  <motion.div {...fadeUp} className="rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900/50">
-    <iframe
-      src="https://claude.site/public/artifacts/9bd4a0b6-ca0d-44e8-bc36-c456103321e4/embed"
-      title="AI Receptionist Demo"
-      width="100%"
-      height="600"
-      frameBorder="0"
-      allow="clipboard-write"
-      allowFullScreen
-      className="w-full"
-    />
-  </motion.div>
-</section>
-```
+**CSS changes (mobile media query):**
+- Change `.stage` from `flex-direction: row` to `flex-direction: column` on mobile
+- Remove the `transform: scale()` hack — elements will be full-width instead
+- Make `.conn` connectors vertical: swap width/height, change gradient direction to vertical, and make the dot animate top-to-bottom instead of left-to-right
+- Make `.phone`, `.ai-panel`, `.right-panel` full width with `width: 100%` and appropriate max-widths
+- Allow `.scene` to scroll vertically (`overflow-y: auto`) instead of `overflow: hidden`
+- Set `.stage` to `align-items: center` with proper vertical gaps
 
-No other files need to change.
+**Specific mobile overrides:**
+- `.stage`: `flex-direction: column; gap: 12px; transform: none; max-width: 300px; padding: 60px 16px 40px;`
+- `.conn`: `width: 1px; height: 40px; max-width: none; min-width: auto;` with vertical gradient
+- `.conn-dot.active`: new `@keyframes travel-v` animating top instead of left
+- `.phone`: slightly smaller (`width: 90px; height: 170px`)
+- `.ai-panel`, `.right-panel`: `width: 100%`
+- `.scene`: `overflow-y: auto; height: auto; min-height: 100vh;`
+
+**Also update `src/pages/RealEstate.tsx`:**
+- Increase mobile iframe height from `350px` to `580px` to accommodate the vertical layout
+
+### No JS changes needed
+The animation logic stays the same — only CSS layout changes via media queries.
 
