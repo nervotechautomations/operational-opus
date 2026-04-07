@@ -114,7 +114,7 @@ const RealEstate = () => {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="relative z-10 max-w-5xl mx-auto px-6 py-24">
+      <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 py-16 md:py-24">
         <motion.h2 {...fadeUp} className="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight">
           How It Works
         </motion.h2>
