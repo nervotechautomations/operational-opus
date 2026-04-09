@@ -1,3 +1,5 @@
+import Cal, { getCalApi } from "@calcom/embed-react";
+import { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -6,8 +8,9 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
-// ⚙️ UPDATE THIS to your Cal.com booking link
-export const CAL_EMBED_URL = "https://cal.com/cristian-dieguez-uhgoro/30min";
+// Cal.com booking link in "username/event-slug" form
+export const CAL_LINK = "cristian-dieguez-uhgoro/15min";
+export const CAL_EMBED_URL = `https://cal.com/${CAL_LINK}`;
 
 interface CalBookingDialogProps {
   open: boolean;
@@ -15,6 +18,21 @@ interface CalBookingDialogProps {
 }
 
 const CalBookingDialog = ({ open, onOpenChange }: CalBookingDialogProps) => {
+  useEffect(() => {
+    (async () => {
+      const cal = await getCalApi();
+      cal("ui", {
+        theme: "dark",
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#2563EB" },
+          dark: { "cal-brand": "#2563EB" },
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+    })();
+  }, []);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl w-[95vw] h-[85vh] p-0 bg-background border-border/50 overflow-hidden">
@@ -26,13 +44,11 @@ const CalBookingDialog = ({ open, onOpenChange }: CalBookingDialogProps) => {
             Book a free 30-minute strategy call
           </DialogDescription>
         </DialogHeader>
-        <div className="flex-1 px-2 pb-2 h-full">
-          <iframe
-            src={`${CAL_EMBED_URL}?embed=true&theme=dark`}
-            className="w-full h-full min-h-[500px] rounded-lg border-0"
-            style={{ colorScheme: "dark" }}
-            title="Schedule a consultation"
-            allow="payment"
+        <div className="flex-1 px-2 pb-2 h-full overflow-auto">
+          <Cal
+            calLink={CAL_LINK}
+            style={{ width: "100%", height: "100%", minHeight: 500 }}
+            config={{ layout: "month_view", theme: "dark" }}
           />
         </div>
       </DialogContent>
